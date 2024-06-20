@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <style>
+        body {
+            background-color: yellow;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: green;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Telegram Web App Header
+    </header>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    function logActivity(event) {
+        fetch('/user_activity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({activity: event.type}),
+        });
+    }
+
+    function setThemeClass(theme) {
+        document.body.className = theme === 'dark' ? 'dark' : 'light';
+    }
+
+    window.onload = function() {
+        logActivity;
+
+        // Initialize Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.expand();  // Fully expand the web app
+
+        // Set the initial theme
+        setThemeClass(tg.themeParams.theme);
+
+        // Listen for theme changes
+        tg.onEvent('themeChanged', function() {
+            setThemeClass(tg.themeParams.theme);
+        });
+
+        // Set the initial language
+        document.documentElement.lang = tg.initDataUnsafe.user.language_code;
+
+        // Log the onload activity
+        logActivity({type: 'onload'});
+    };
+
+    window.onmousemove = logActivity;
+</script>
+</body>
+</html>
