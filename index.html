@@ -4,26 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Web App</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .content {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="content">
         <p>Your content goes here. This will appear below the header.</p>
-        <a href="#">This is a link</a>
-        <button>This is a button</button>
-        <div class="section">
-            <div class="section-header">Section Header</div>
-            <p class="subtitle">This is a subtitle</p>
-            <p class="hint">This is a hint</p>
-            <p class="accent">This is accent text</p>
-            <p class="destructive">This is destructive text</p>
-        </div>
     </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         window.onload = function() {
             const tg = window.Telegram.WebApp;
+            
+            // Expand the Web App to full height
             tg.expand();
+
+            // Set the background color to black
+            tg.setBackgroundColor('#000000');
+
+            // Set the header color (you might want to adjust this)
+            tg.setHeaderColor('#000000');
+
             // Additional initialization code can go here
         };
     </script>
